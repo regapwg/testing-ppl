@@ -1,6 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\ProgramStudyController;
+use App\Http\Controllers\MataKuliahController;
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\TahunAkademikController;
+
+use App\Http\Controllers\KrsController;
+use App\Http\Controllers\KhsController;
+use App\Http\Controllers\InputNilaiController;
+use App\Http\Controllers\TranskripNilaiController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
