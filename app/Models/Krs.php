@@ -5,25 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Krs extends Model
+class KRS extends Model
 {
     use HasFactory;
-    protected $table = 'krs';
+    protected $table='krs';
+    protected $primaryKey='id';
+    protected $fillable=['nama_krs'];
 
-    protected $guarded = ['id'];
-
-    public function program_study()
-    {
-        return $this->belongsTo(ProgramStudy::class);
+    public function krsDetail(){
+        return $this->hasMany(KRSDetail::class, 'id', 'krs_id');
     }
 
-    public function mata_kuliah()
-    {
-        return $this->belongsTo(MataKuliah::class);
-    }
-
-    public function tahun_akademik()
-    {
-        return $this->belongsTo(TahunAkademik::class);
+    public function mahasiswa(){
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
     }
 }

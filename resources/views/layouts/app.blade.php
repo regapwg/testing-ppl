@@ -1,131 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx" class="js">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
-    @yield('styles')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+    @include('templates.metadata')
+    <style>
+        .currency{
+            text-align: right;
+        }
+    </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
-                        <a href="{{ route('admin.profile.show') }}" class="dropdown-item">
-                            <i class="mr-2 fas fa-file"></i>
-                            {{ __('My profile') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">
-                                <i class="mr-2 fas fa-sign-out-alt"></i>
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
+<body class="nk-body bg-lighter npc-general has-sidebar">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- sidebar @s -->
+            @if(request()->path() !== '/')
+                @include('templates.sidebar')
+            @endif
+            <!-- sidebar @e -->
+            <!-- wrap @s -->
+            <div class="nk-wrap ">
+                <!-- main header @s -->
+                @if(request()->path() !== '/')
+                    <div class="nk-header nk-header-fixed is-light">
+                        @include('templates.navbar')
                     </div>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-            <!-- <a href="/" class="brand-link">
-                <img src="{{ asset('images/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
-            </a> -->
-
-            @include('layouts.navigation')
-        </aside>
-
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            @if(count($errors) > 0 )
-            <div class="content-header mb-0 pb-0">
-                <div class="container-fluid">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <ul class="p-0 m-0" style="list-style: none;">
-                            @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                            @endforeach
-                        </ul>
+                @endif
+                <!-- main header @e -->
+                <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                @yield('content')
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- content @e -->
+                @include('templates.footer')
             </div>
-            @endif
-            @if(session()->has('message'))
-            <div class="content-header mb-0 pb-0">
-                <div class="container-fluid">
-                    <div class="mb-0 alert alert-{{ session()->get('alert-type') }} alert-dismissible fade show" role="alert">
-                        <strong>{{ session()->get('message') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </div>
-            @endif
-            @yield('content')
+            <!-- wrap @e -->
         </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+        <!-- main @e -->
     </div>
-    <!-- ./wrapper -->
+    <!-- app-root @e -->
+    @include('templates.metascript')
+    @include('templates.script')
+    @stack('script')
+    <script>
+    $(document).ready(function(){
+        var baseUrl = "{{URL('/')}}";
+        $('.dataTables_length select').addClass('select2');
+        $('.dataTables_length select').removeClass('form-select form-select-sm');
+        $('#{{@$table_id}}_filter input').unbind();
+        $('#{{@$table_id}}_filter input').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                table.search(this.value).draw();   
+            }
+        });
+        var get = [];
+        location.search.replace('?','').split('&').forEach(function(val){
+            split = val.split("=",2);
+            get[split[0]] = split[1];
+        });
 
-    <!-- REQUIRED SCRIPTS -->
+        if(window.location.href == "{{URL('/')}}/"){
+            var url = window.location.href.substring(0, window.location.href.length - 1);
+        }else{
+            var url = window.location;
+        }
+        $('ul li a[href="'+ url +'"]').parent().addClass('active');
 
-    @vite('resources/js/app.js')
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
+        $(document).on('keyup', '.currency', function(event) {
+          // skip for arrow keys
+          if(event.which >= 37 && event.which <= 40) return;
+          //skip non number
+          if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+            event.preventDefault()
+          }
+          // format number
+          $(this).val(function(index, value) {
+            return value.replace(/[^-?0-9\,]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+          })
+        })
+    });
+    function buttondisable(elm){
+        // $(elm).text('Loading...');
+        // $(elm).html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>');
+        $(elm).addClass('disabled');
+        $(elm).html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span>Loading...</span>');
+    }
+    function buttonsmdisable(elm){
+        // $(elm).text('Loading...');
+        // $(elm).html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>');
+        $(elm).addClass('disabled');
+        $(elm).html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span></span>');
+    }
+    </script>
 
-    @yield('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

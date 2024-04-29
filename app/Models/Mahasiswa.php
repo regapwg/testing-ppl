@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     use HasFactory;
-    protected $table = 'mahasiswa';
+    protected $table='mahasiswa';
+    protected $fillable=['nim', 'nama'];
 
-    protected $guarded = ['id'];
-
-    public function program_study()
-    {
-        return $this->belongsTo(ProgramStudy::class);
+    public function krs(){
+        return $this->hasMany(KRS::class, 'id', 'krs_id');
     }
 }
